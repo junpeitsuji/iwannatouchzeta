@@ -33,6 +33,8 @@ $ ruby test_cppzeta.rb
 1.6448798205485344
 ```
 
+zeta(2) = 1.6448798205485344
+
 
 ### Execution
 
