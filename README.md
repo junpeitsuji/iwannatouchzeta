@@ -3,6 +3,7 @@
 
 
 * Requirements
+
 ```$ ruby -v 
 ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin15]
 ```
@@ -17,6 +18,7 @@ InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault
 ```
 
 * Build C++ zeta function library
+
 ```$ cd iwannatouchzeta/cpp/
 $ ruby extconf.rb
 $ make
@@ -31,11 +33,13 @@ $ ruby test_cppzeta.rb
 
 
 * Execution
+
 ```$ sh quickstart.sh
 ```
 
 
    or
+   
 
 ```$ ruby stl.rb config3d-zeta.rb
 ```
