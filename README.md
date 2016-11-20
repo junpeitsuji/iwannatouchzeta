@@ -2,14 +2,13 @@
 3D printed Riemann Zeta Function "触れるゼータ関数" http://tsujimotter.hatenablog.com/entry/touchable-3d-zeta-function
 
 
-* Requirements
+### Requirements
 
-```$ ruby -v 
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin15]
 ```
+$ ruby -v 
+ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin15]
 
-
-```gcc -v
+$gcc -v
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include/c++/4.2.1
 Apple LLVM version 8.0.0 (clang-800.0.42.1)
 Target: x86_64-apple-darwin15.6.0
@@ -17,31 +16,34 @@ Thread model: posix
 InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 ```
 
-* Build C++ zeta function library
+### Build C++ zeta function library
 
-```$ cd iwannatouchzeta/cpp/
+```
+$ cd iwannatouchzeta/cpp/
 $ ruby extconf.rb
 $ make
 $ cd ..
 ```
 
+test
 
-```$ cd testcodes
+```
+$ cd testcodes
 $ ruby test_cppzeta.rb
 1.6448798205485344
 ```
 
 
-* Execution
+### Execution
 
-```$ sh quickstart.sh
+```
+$ sh quickstart.sh
 ```
 
-
    or
-   
 
-```$ ruby stl.rb config3d-zeta.rb
+```
+$ ruby stl.rb config3d-zeta.rb
 ```
 
 
