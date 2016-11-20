@@ -1,4 +1,4 @@
-# zeta 用セッティング （3Dプリンタ用）
+# Gamma 関数用セッティング （3Dプリンタ用）
 
 require './cpp/zeta'
 
