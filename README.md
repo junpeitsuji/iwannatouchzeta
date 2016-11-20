@@ -4,7 +4,8 @@
 
 * Requirements
 ```$ ruby -v 
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin15]```
+ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin15]
+```
 
 
 ```gcc -v
@@ -30,12 +31,14 @@ $ ruby test_cppzeta.rb
 
 
 * Execution
-```$ sh quickstart.sh```
+```$ sh quickstart.sh
+```
 
 
    or
 
-```$ ruby stl.rb config3d-zeta.rb```
+```$ ruby stl.rb config3d-zeta.rb
+```
 
 
 After a calculation, result file will be ready (in the `result` directory).
