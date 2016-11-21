@@ -59,3 +59,6 @@ $ ruby stl.rb config3d-zeta-miniedition-ruby.rb
 
 After a calculation, result file will be ready (in the `result` directory (`result/zeta-miniedition.stl`)).
 
+
+![Screenshot of zeta-miniedition.stl](https://raw.githubusercontent.com/junpeitsuji/iwannatouchzeta/master/screenshots/zeta-miniedition-stl.png)
+
