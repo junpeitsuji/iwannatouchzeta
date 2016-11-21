@@ -7,6 +7,7 @@
 # 
 
 require 'matrix'
+require 'benchmark'
 
 # デフォルトパス（config3d-xxx.rb で書き換えれる）
 $output_path = "./result/result.stl"
@@ -141,126 +142,29 @@ end
 
 #=begin
 
-File.open($output_path, "w") do |io|
-	io.puts "solid #{$stlname}"
+result = Benchmark.realtime do
+
+	File.open($output_path, "w") do |io|
+		io.puts "solid #{$stlname}"
 
 
-	# X 軸 を走査
-	t = $min_x
-	while t < $max_x
-		puts "X-axis: #{t}"
+		# X 軸 を走査
+		t = $min_x
+		while t < $max_x
+			puts "X-axis: #{t}"
 
-		x = t
-		y = $min_y
+			x = t
+			y = $min_y
 
-		x2= x + dx
-		if x2 >= $max_x then
-			x2 = $max_x
-		end
-
-		v0 = Vertex[tx(x, y), ty(x, y), 0]
-		v1 = Vertex[tx(x2,y), ty(x2,y), 0]
-		v2 = Vertex[tx(x, y), ty(x, y), tz( function(x,  y) )]
-		v3 = Vertex[tx(x2,y), ty(x2,y), tz( function(x2, y) )]
-
-		facet = Facet.new( v0, v1, v2 )
-		io.puts "#{facet.to_s}"
-
-		facet = Facet.new( v3, v2, v1 )
-		io.puts "#{facet.to_s}"
-
-
-		x = $max_x - t + $min_x
-		y = $max_y
-
-		x2= x - dx
-		if x2 <= $min_x then
-			x2 = $min_x
-		end
-
-		v0 = Vertex[tx(x, y), ty(x, y), 0]
-		v1 = Vertex[tx(x2,y), ty(x2,y), 0]
-		v2 = Vertex[tx(x, y), ty(x, y), tz( function(x,  y) )]
-		v3 = Vertex[tx(x2,y), ty(x2,y), tz( function(x2, y) )]
-
-		facet = Facet.new( v0, v1, v2 )
-		io.puts "#{facet.to_s}"
-
-		facet = Facet.new( v3, v2, v1 )
-		io.puts "#{facet.to_s}"
-
-		t += dx
-	end
-
-
-	# Y 軸 を走査
-	t = $min_y
-	while t < $max_y
-		puts "Y-axis: #{t}"
-
-		x = $min_x
-		y = t
-
-		y2= y + dy
-		if $max_y <= y2 then
-			y2 = $max_y
-		end
-
-		v0 = Vertex[tx(x,y),  ty(x,y),  0]
-		v1 = Vertex[tx(x,y2), ty(x,y2), 0]
-		v2 = Vertex[tx(x,y),  ty(x,y),  tz( function(x, y ) )]
-		v3 = Vertex[tx(x,y2), ty(x,y2), tz( function(x, y2) )]
-
-		facet = Facet.new( v0, v2, v1 )
-		io.puts "#{facet.to_s}"
-
-		facet = Facet.new( v3, v1, v2 )
-		io.puts "#{facet.to_s}"
-
-		x = $max_x
-		y = $max_y - t + $min_y
-
-		y2= y - dy
-		if y2 <= $min_y then
-			y2 = $min_y
-		end
-
-		v0 = Vertex[tx(x,y),  ty(x,y),  0]
-		v1 = Vertex[tx(x,y2), ty(x,y2), 0]
-		v2 = Vertex[tx(x,y),  ty(x,y),  tz( function(x, y) )]
-		v3 = Vertex[tx(x,y2), ty(x,y2), tz( function(x, y2) )]
-
-		facet = Facet.new( v0, v2, v1 )
-		io.puts "#{facet.to_s}"
-
-		facet = Facet.new( v3, v1, v2 )
-		io.puts "#{facet.to_s}"
-
-		t += dy
-	end
-
-
-	# XY 平面を走査
-	y = $min_y
-	while y < $max_y
-		puts "XY-plain: #{y}"
-
-		x = $min_x
-		while x < $max_x
-
-			x2 = x + dx
-			if x2 >= $max_x then 
-				x2 = $max_x 
-			end
-			y2 = y + dy
-			if y2 >= $max_y then 
-				y2 = $max_y 
+			x2= x + dx
+			if x2 >= $max_x then
+				x2 = $max_x
 			end
 
-			v0 = Vertex[tx(x, y),  ty(x, y),  tz( function(x,  y ) )]
-			v1 = Vertex[tx(x2,y),  ty(x2,y),  tz( function(x2, y ) )]
-			v2 = Vertex[tx(x, y2), ty(x, y2), tz( function(x,  y2) )]
-			v3 = Vertex[tx(x2,y2), ty(x2,y2), tz( function(x2, y2) )]
+			v0 = Vertex[tx(x, y), ty(x, y), 0]
+			v1 = Vertex[tx(x2,y), ty(x2,y), 0]
+			v2 = Vertex[tx(x, y), ty(x, y), tz( function(x,  y) )]
+			v3 = Vertex[tx(x2,y), ty(x2,y), tz( function(x2, y) )]
 
 			facet = Facet.new( v0, v1, v2 )
 			io.puts "#{facet.to_s}"
@@ -268,24 +172,127 @@ File.open($output_path, "w") do |io|
 			facet = Facet.new( v3, v2, v1 )
 			io.puts "#{facet.to_s}"
 
-			# Z 平面の土台を作る
-			v0 = Vertex[tx(x, y),  ty(x, y),  0]
-			v1 = Vertex[tx(x2,y),  ty(x2,y),  0]
-			v2 = Vertex[tx(x, y2), ty(x, y2), 0]
-			v3 = Vertex[tx(x2,y2), ty(x2,y2), 0]
+
+			x = $max_x - t + $min_x
+			y = $max_y
+
+			x2= x - dx
+			if x2 <= $min_x then
+				x2 = $min_x
+			end
+
+			v0 = Vertex[tx(x, y), ty(x, y), 0]
+			v1 = Vertex[tx(x2,y), ty(x2,y), 0]
+			v2 = Vertex[tx(x, y), ty(x, y), tz( function(x,  y) )]
+			v3 = Vertex[tx(x2,y), ty(x2,y), tz( function(x2, y) )]
+
+			facet = Facet.new( v0, v1, v2 )
+			io.puts "#{facet.to_s}"
+
+			facet = Facet.new( v3, v2, v1 )
+			io.puts "#{facet.to_s}"
+
+			t += dx
+		end
+
+
+		# Y 軸 を走査
+		t = $min_y
+		while t < $max_y
+			puts "Y-axis: #{t}"
+
+			x = $min_x
+			y = t
+
+			y2= y + dy
+			if $max_y <= y2 then
+				y2 = $max_y
+			end
+
+			v0 = Vertex[tx(x,y),  ty(x,y),  0]
+			v1 = Vertex[tx(x,y2), ty(x,y2), 0]
+			v2 = Vertex[tx(x,y),  ty(x,y),  tz( function(x, y ) )]
+			v3 = Vertex[tx(x,y2), ty(x,y2), tz( function(x, y2) )]
+
 			facet = Facet.new( v0, v2, v1 )
 			io.puts "#{facet.to_s}"
+
 			facet = Facet.new( v3, v1, v2 )
 			io.puts "#{facet.to_s}"
 
-			x += dx
+			x = $max_x
+			y = $max_y - t + $min_y
+
+			y2= y - dy
+			if y2 <= $min_y then
+				y2 = $min_y
+			end
+
+			v0 = Vertex[tx(x,y),  ty(x,y),  0]
+			v1 = Vertex[tx(x,y2), ty(x,y2), 0]
+			v2 = Vertex[tx(x,y),  ty(x,y),  tz( function(x, y) )]
+			v3 = Vertex[tx(x,y2), ty(x,y2), tz( function(x, y2) )]
+
+			facet = Facet.new( v0, v2, v1 )
+			io.puts "#{facet.to_s}"
+
+			facet = Facet.new( v3, v1, v2 )
+			io.puts "#{facet.to_s}"
+
+			t += dy
 		end
 
-		y += dy
+
+		# XY 平面を走査
+		y = $min_y
+		while y < $max_y
+			puts "XY-plain: #{y}"
+
+			x = $min_x
+			while x < $max_x
+
+				x2 = x + dx
+				if x2 >= $max_x then 
+					x2 = $max_x 
+				end
+				y2 = y + dy
+				if y2 >= $max_y then 
+					y2 = $max_y 
+				end
+
+				v0 = Vertex[tx(x, y),  ty(x, y),  tz( function(x,  y ) )]
+				v1 = Vertex[tx(x2,y),  ty(x2,y),  tz( function(x2, y ) )]
+				v2 = Vertex[tx(x, y2), ty(x, y2), tz( function(x,  y2) )]
+				v3 = Vertex[tx(x2,y2), ty(x2,y2), tz( function(x2, y2) )]
+
+				facet = Facet.new( v0, v1, v2 )
+				io.puts "#{facet.to_s}"
+
+				facet = Facet.new( v3, v2, v1 )
+				io.puts "#{facet.to_s}"
+
+				# Z 平面の土台を作る
+				v0 = Vertex[tx(x, y),  ty(x, y),  0]
+				v1 = Vertex[tx(x2,y),  ty(x2,y),  0]
+				v2 = Vertex[tx(x, y2), ty(x, y2), 0]
+				v3 = Vertex[tx(x2,y2), ty(x2,y2), 0]
+				facet = Facet.new( v0, v2, v1 )
+				io.puts "#{facet.to_s}"
+				facet = Facet.new( v3, v1, v2 )
+				io.puts "#{facet.to_s}"
+
+				x += dx
+			end
+
+			y += dy
+		end
+
+		io.puts "endsolid #{$stlname}"
 	end
 
-	io.puts "endsolid #{$stlname}"
 end
+puts ""
+puts "Processing time: #{result}s"
 
 
 print "\a"   # ビープ音
