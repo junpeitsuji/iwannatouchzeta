@@ -62,3 +62,5 @@ After a calculation, result file will be ready (in the `result` directory (`resu
 
 ![Screenshot of zeta-miniedition.stl](https://raw.githubusercontent.com/junpeitsuji/iwannatouchzeta/master/screenshots/zeta-miniedition-stl.png)
 
+
+Enjoy your zeta life!!
