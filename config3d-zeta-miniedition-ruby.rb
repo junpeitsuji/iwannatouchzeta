@@ -28,6 +28,6 @@ $z_offset = 4.0 # mm
 
 
 def zfunction(x, y)
-   abs_zeta2(x, y)
+   Zeta.abs_zeta2(x, y)
 end
 
