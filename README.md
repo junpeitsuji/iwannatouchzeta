@@ -53,9 +53,9 @@ $ sh quickstart.sh
    or
 
 ```
-$ ruby stl.rb config3d-zeta.rb
+$ ruby stl.rb config3d-zeta-miniedition-ruby.rb
 ```
 
 
-After a calculation, result file will be ready (in the `result` directory (`result/zeta-miniedition.stl` or `result/zeta.stl`)).
+After a calculation, result file will be ready (in the `result` directory (`result/zeta-miniedition.stl`)).
 
