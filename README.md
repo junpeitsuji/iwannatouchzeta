@@ -64,3 +64,27 @@ After a calculation, result file will be ready (in the `result` directory (`resu
 
 
 Enjoy your zeta life!!
+
+
+
+### Benchmark Tests
+
+Zeta 観賞用 C++ (`ruby stl.rb config3d-zeta-cpp.rb`)
+```
+Processing time: 73.49609957399662s
+```
+
+Zeta 観賞用 C++ 2X (`ruby stl.rb config3d-zeta-cpp-2x.rb`)
+```
+Processing time: 292.0691345179803s
+```
+
+Zeta mini edition C++ (`ruby stl.rb config3d-zeta-miniedition-cpp.rb`)
+```
+Processing time: 46.85677544301143s
+```
+
+Zeta mini edition Ruby (`ruby stl.rb config3d-zeta-miniedition-ruby.rb`)
+```
+Processing time: 184.01656523201382s
+```
