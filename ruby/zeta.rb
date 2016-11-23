@@ -6,8 +6,6 @@ LOWER_THRESHOLD = 1.0e-6
 UPPER_BOUND = 1.0e+4
 MAXNUM = 100
 
-#include(Math)
-
 
 module Zeta
 
@@ -19,8 +17,8 @@ module Zeta
 
     # 複素三角関数
     def csin(s)
-    	return ((Zeta.cexp(Complex::I*s) - Zeta.cexp(-Complex::I*s))) / (2.0)
-    	#Math::sin( s )
+        return ((Zeta.cexp(Complex::I*s) - Zeta.cexp(-Complex::I*s))) / (2.0)
+        #Math::sin( s )
     end
 
 
@@ -96,65 +94,65 @@ module Zeta
 
 
 
-    # 解析接続された複素ゼータ関数
+     # 解析接続された複素ゼータ関数
     def zeta(s)
 
-    	a_arr = Array.new(MAXNUM+1)
+        a_arr = Array.new(MAXNUM+1)
 
-    	prev = 1.0e+20
-
-
-    	# a_0 = 0.5 / (1 - 2^(1-s)) で初期化
-    	a_arr[0] = 0.5 / (1.0 - (2.0**(1.0-s)))
-
-    	sum = a_arr[0]
+        prev = 1.0e+20
 
 
-    	(1..MAXNUM).each do |n|
+        # a_0 = 0.5 / (1 - 2^(1-s)) で初期化
+        a_arr[0] = 0.5 / (1.0 - (2.0**(1.0-s)))
 
-    		(0..(n-1)).each do |k|
-    			a_arr[k] = 0.5 * a_arr[k] * (n/(n-k).to_f)
-    			sum = sum + a_arr[k]
-    		end
+        sum = a_arr[0]
 
-    		a_arr[n] = (-a_arr[n-1] * ((n/(n+1).to_f) ** s) / n.to_f)
-    		sum = sum + a_arr[n]
 
-    		# 差が閾値以下であれば「収束した」と判断して計算を終了する
-    		if( (prev - sum).abs < LOWER_THRESHOLD )
-    			break			
-    		end
+        (1..MAXNUM).each do |n|
 
-    		# 大きな値は上記の収束判定がきかないため、UPPER_BOUND を超えると「打ち止め」して計算を終了する
-    		if( sum.abs > UPPER_BOUND )
-    			break
-    		end	
+            (0..(n-1)).each do |k|
+                a_arr[k] = 0.5 * a_arr[k] * (n/(n-k).to_f)
+                sum = sum + a_arr[k]
+            end
 
-    		prev = sum
+            a_arr[n] = (-a_arr[n-1] * ((n/(n+1).to_f) ** s) / n.to_f)
+            sum = sum + a_arr[n]
 
-    	end
+            # 差が閾値以下であれば「収束した」と判断して計算を終了する
+            if( (prev - sum).abs < LOWER_THRESHOLD )
+                break           
+            end
 
-    	return sum
+            # 大きな値は上記の収束判定がきかないため、UPPER_BOUND を超えると「打ち止め」して計算を終了する
+            if( sum.abs > UPPER_BOUND )
+                break
+            end 
+
+            prev = sum
+
+        end
+
+        return sum
 
     end
-     
+      
 
 
 
     # 関数等式を使って効率化した複素ゼータ関数
     def complex_zeta(s)
-      x = s.real
-      y = s.imag
+        x = s.real
+        y = s.imag
 
-      if( x < 0.0 )
-        inv_s = Complex(1-x, -y)
+        if( x < 0.0 )
+          inv_s = Complex(1-x, -y)
 
-        return (2.0 ** s) * (Math::PI ** (-inv_s)) * Zeta.csin(0.5*Math::PI*s) * Zeta.cdgamma(inv_s) * zeta(inv_s)
+          return (2.0 ** s) * (Math::PI ** (-inv_s)) * Zeta.csin(0.5*Math::PI*s) * Zeta.cdgamma(inv_s) * zeta(inv_s)
 
-      else
-        return Zeta.zeta(s)
+        else
+          return Zeta.zeta(s)
 
-      end
+        end
 
     end
 
@@ -162,8 +160,8 @@ module Zeta
 
     # ゼータ関数の絶対値
     def abs_zeta2(x, y)
-    	s = Complex(x, y)
-    	return Zeta.complex_zeta(s).abs
+        s = Complex(x, y)
+        return Zeta.complex_zeta(s).abs
     end
 
 
@@ -174,24 +172,24 @@ end
 
 
 def test_run()
-	(0..1000).each do |n|
-		(0..1000).each do |k|
-			x = 0.1*n - 50.0
-			y = 0.1*k - 50.0
-			z = Zeta.abs_zeta2(x, y)
-		end
-		puts n
-	end
+    (0..1000).each do |n|
+        (0..1000).each do |k|
+            x = 0.1*n - 50.0
+            y = 0.1*k - 50.0
+            z = Zeta.abs_zeta2(x, y)
+        end
+        puts n
+    end
 
 end
 
 
 def test_critical_line()
-	(0..1000).each do |k|
-		x = 0.5
-		y = 0.1*k;
-		puts Zeta.abs_zeta2(x, y)
-	end
+    (0..1000).each do |k|
+        x = 0.5
+        y = 0.1*k;
+        puts Zeta.abs_zeta2(x, y)
+    end
 
 end
 
