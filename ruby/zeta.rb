@@ -2,7 +2,7 @@
 
 require 'complex'
 
-LOWER_THRESHOLD = 1.0e-4
+LOWER_THRESHOLD = 1.0e-6
 UPPER_BOUND = 1.0e+4
 MAXNUM = 100
 

@@ -5,7 +5,7 @@
 
 // http://na-inet.jp/fft/chap03.pdf
 
-const long double LOWER_THRESHOLD = 1.0e-4;
+const long double LOWER_THRESHOLD = 1.0e-6;
 const long double UPPER_BOUND = 1.0e+4;
 const int MAXNUM = 100;
 
