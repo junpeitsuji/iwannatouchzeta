@@ -34,13 +34,15 @@ end
 =end
 
 
-# ジーゲルのZ関数 (定義どおり)
+# ジーゲルのZ関数
 def siegelZ t
-	if t > 0 
+	if t > 1.0
 		z = (Math::E ** (Complex::I * siegelTheta(t))) * Zeta.complex_zeta(Complex(0.5, t))
 		return z.real
 	else
-		z = Zeta.complex_zeta(Complex(0.5, t))
+		# t < 1.0 では theta(t) の近似計算が十分ではない
+		# Z(t) < 0 より，ゼータの絶対値にマイナスをつけたもので代用する
+		z = -Zeta.complex_zeta(Complex(0.5, t)).abs
 		return z.real
 	end
 end
